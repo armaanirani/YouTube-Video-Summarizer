@@ -3,3 +3,4 @@ streamlit
 google-generativeai
 python-dotenv
 pathlib
+reportlab
