@@ -5,6 +5,10 @@ import re
 import requests
 from PIL import Image
 from io import BytesIO
+import io
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
 import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
 import pandas as pd
@@ -451,99 +455,73 @@ def generate_chapter_summary(transcript, video_id):
     if "error" in transcript:
         return transcript["error"]
     
-    # Try to get chapters from YouTube API
-    api_key = os.getenv("YOUTUBE_API_KEY")
-    chapters = []
+    model = genai.GenerativeModel("gemini-1.5-pro")
     
-    if api_key:
-        try:
-            response = requests.get(f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&key={api_key}&part=snippet")
-            data = response.json()
-            
-            if data.get('items'):
-                description = data['items'][0]['snippet'].get('description', '')
-                
-                # Look for chapter patterns in description
-                # Common format: 00:00 Chapter Title
-                chapter_pattern = r'(\d{1,2}:\d{2})\s+(.*)'
-                matches = re.findall(chapter_pattern, description)
-                
-                if matches:
-                    for timestamp, title in matches:
-                        chapters.append({
-                            "timestamp": timestamp,
-                            "title": title.strip()
-                        })
-        except Exception as e:
-            pass
-    
-    # If no chapters found, use AI to generate them
-    if not chapters:
-        model = genai.GenerativeModel("gemini-1.5-pro")
-        prompt = f"""Analyze this YouTube video transcript and create logical chapters with timestamps. 
-Identify 5-8 main topics or sections in the video and provide a brief title for each.
-Format your response as JSON with timestamps and titles. Example:
-[
-  {{"timestamp": "00:00", "title": "Introduction"}},
-  {{"timestamp": "05:30", "title": "Main Topic 1"}},
-  {{"timestamp": "12:45", "title": "Main Topic 2"}}
-]
+    # Prompt Gemini to identify chapters directly
+    chapter_prompt = f"""Analyze this YouTube video transcript and identify 5-7 main sections or topics.
+For each section, provide:
+1. A descriptive title
+2. An approximate timestamp (MM:SS format)
+3. A brief 2-3 sentence summary of what's covered in that section
+
+Format your response as a Markdown document with second-level headings for each chapter, 
+including the timestamp in brackets. For example:
+
+## [00:00] Introduction
+Brief summary of the introduction...
+
+## [05:30] Main Topic
+Brief summary of this section...
 
 Transcript:
-{transcript["full_text"]}
+{transcript["full_text"][:15000]}  # Limit transcript length to avoid token limits
+"""
+    
+    try:
+        response = model.generate_content(chapter_prompt)
+        chapter_summary = response.text
+        
+        # If no clear chapters were identified, try a different approach
+        if "##" not in chapter_summary:
+            # Fall back to a more structured approach
+            structured_prompt = f"""Create a chapter-based summary of this YouTube video transcript.
+Divide the content into exactly 5 logical sections, and for each section provide:
+1. A clear title
+2. An estimated timestamp in MM:SS format
+3. A concise 2-3 sentence summary
+
+Format as markdown with level 2 headings including timestamps:
+
+## [00:00] Introduction
+Summary text...
+
+## [MM:SS] Title
+Summary text...
+
+And so on. Focus on creating a useful breakdown of the video content.
+
+Transcript:
+{transcript["full_text"][:15000]}
+"""
+            response = model.generate_content(structured_prompt)
+            chapter_summary = response.text
+        
+        return "# Chapter-Based Summary\n\n" + chapter_summary
+    
+    except Exception as e:
+        # In case of any error, fall back to regular summary
+        fallback_prompt = f"""Create a structured summary of this YouTube video transcript.
+Divide your summary into 5 main sections with clear headings.
+For each section, provide a concise summary of the key points.
+
+Transcript:
+{transcript["full_text"][:15000]}
 """
         try:
-            response = model.generate_content(prompt)
-            import json
-            chapters = json.loads(response.text)
-        except Exception as e:
-            # If JSON parsing fails, fall back to basic summary
-            return generate_summary(transcript, "chapter")
-    
-    # Generate summary for each chapter
-    if chapters:
-        model = genai.GenerativeModel("gemini-1.5-pro")
-        full_summary = "# Chapter-Based Summary\n\n"
-        
-        for i, chapter in enumerate(chapters):
-            # Get start and end timestamps
-            start_time = chapter["timestamp"]
-            end_time = chapters[i+1]["timestamp"] if i+1 < len(chapters) else None
-            
-            # Convert timestamps to seconds for filtering
-            start_seconds = sum(int(x) * 60 ** i for i, x in enumerate(reversed(start_time.split(":"))))
-            end_seconds = None
-            if end_time:
-                end_seconds = sum(int(x) * 60 ** i for i, x in enumerate(reversed(end_time.split(":"))))
-            
-            # Extract transcript for this chapter
-            chapter_transcript = ""
-            for entry in transcript["timestamped"]:
-                entry_time = entry["timestamp"]
-                entry_seconds = sum(int(x) * 60 ** i for i, x in enumerate(reversed(entry_time.split(":"))))
-                
-                if entry_seconds >= start_seconds and (end_seconds is None or entry_seconds < end_seconds):
-                    chapter_transcript += entry["text"] + " "
-            
-            # Generate summary for this chapter
-            prompt = f"""You are a YouTube video summarizer expert. Provide a concise summary of this chapter section in 2-3 sentences. Focus on the main points only.
-
-Chapter: {chapter["title"]}
-Transcript:
-{chapter_transcript}
-"""
-            try:
-                response = model.generate_content(prompt)
-                chapter_summary = response.text
-            except Exception as e:
-                chapter_summary = "Summary generation failed for this chapter."
-            
-            # Add to full summary
-            full_summary += f"## [{chapter['timestamp']}] {chapter['title']}\n\n{chapter_summary}\n\n"
-        
-        return full_summary
-    else:
-        return generate_summary(transcript, "chapter")
+            response = model.generate_content(fallback_prompt)
+            return "# Structured Summary\n\n" + response.text
+        except:
+            return "Error generating chapter-based summary. Please try a different summary type."
 
 # Function to create Markdown export
 def create_markdown_export(content, metadata, summary_type):
