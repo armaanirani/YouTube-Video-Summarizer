@@ -212,10 +212,51 @@ Transcript:
     except Exception as e:
         return f"Error generating summary: {str(e)}"
 
-def create_download_link(content, filename, link_text):
-    """Create a download link for text content"""
-    b64 = base64.b64encode(content.encode()).decode()
-    href = f'<a href="data:file/txt;base64,{b64}" download="{filename}">{link_text}</a>'
+# Function to generate PDF
+def generate_pdf(content, title):
+    """Generate a PDF from content"""
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    styles = getSampleStyleSheet()
+    
+    # Convert content to PDF-compatible format
+    flowables = []
+    
+    # Add title
+    flowables.append(Paragraph(title, styles['Title']))
+    flowables.append(Spacer(1, 12))
+    
+    # Process content - split by lines and convert to paragraphs
+    for line in content.split('\n'):
+        if line.strip():
+            if line.startswith('# '):
+                # Main heading
+                flowables.append(Paragraph(line[2:], styles['Heading1']))
+            elif line.startswith('## '):
+                # Subheading
+                flowables.append(Paragraph(line[3:], styles['Heading2']))
+            elif line.startswith('### '):
+                # Sub-subheading
+                flowables.append(Paragraph(line[4:], styles['Heading3']))
+            elif line.startswith('- '):
+                # Bullet point
+                flowables.append(Paragraph(f"• {line[2:]}", styles['BodyText']))
+            else:
+                # Regular paragraph
+                flowables.append(Paragraph(line, styles['BodyText']))
+            
+            flowables.append(Spacer(1, 6))
+    
+    # Build PDF
+    doc.build(flowables)
+    buffer.seek(0)
+    return buffer
+
+# Function to create download link for PDF
+def create_download_link_pdf(pdf_bytes, filename, link_text):
+    """Create a download link for PDF content"""
+    b64 = base64.b64encode(pdf_bytes.getvalue()).decode()
+    href = f'<a href="data:application/pdf;base64,{b64}" download="{filename}">{link_text}</a>'
     return href
 
 # Main app
