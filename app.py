@@ -524,22 +524,34 @@ def main():
                 key="summary_type"
             )
             
-            if st.button("Generate Summary", key="gen_summary") or st.session_state.get('summary_generated', False):
+            # Store the previous summary type to detect changes
+            if 'prev_summary_type' not in st.session_state:
+                st.session_state.prev_summary_type = summary_type
+            
+            generate_summary_clicked = st.button("Generate Summary", key="gen_summary")
+            
+            # Only generate summary if button is clicked, not when radio changes
+            if generate_summary_clicked or st.session_state.get('summary_generated', False):
                 with st.spinner("Generating summary..."):
-                    # Generate summary if not already in session state or if summary type changed
-                    current_summary_type = st.session_state.get('current_summary_type', '')
-                    if summary_type.lower() != current_summary_type or not st.session_state.get('summary'):
-                        if summary_type.lower() == "chapter-based":
-                            summary = generate_chapter_summary(transcript)
-                        else:
-                            summary = generate_summary(transcript, summary_type.lower())
-                        st.session_state.summary = summary
-                        st.session_state.current_summary_type = summary_type.lower()
-                    else:
-                        summary = st.session_state.summary
+                    # Generate summary only if button is clicked OR it's the first time loading with existing summary
+                    if generate_summary_clicked:
+                        # Reset current summary if type changed with button click
+                        if summary_type.lower() != st.session_state.get('current_summary_type', ''):
+                            st.session_state.summary = None
+                        
+                        # Generate the new summary
+                        if not st.session_state.get('summary'):
+                            if summary_type.lower() == "chapter-based":
+                                summary = generate_chapter_summary(transcript)
+                            else:
+                                summary = generate_summary(transcript, summary_type.lower())
+                            st.session_state.summary = summary
+                            st.session_state.current_summary_type = summary_type.lower()
                     
+                    # Use existing summary if available
+                    summary = st.session_state.summary
                     st.session_state.summary_generated = True
-                
+                    
                 st.markdown("### Summary")
                 st.markdown(summary)
                 
