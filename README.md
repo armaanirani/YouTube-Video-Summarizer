@@ -63,15 +63,20 @@ YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos 
 1. **Main Interface**  
 <img width="812" alt="Image" src="https://github.com/user-attachments/assets/ec0e89d8-3a4d-487f-8132-184ba4d5dc2c" />
 
+<img width="812" alt="Image" src="https://github.com/user-attachments/assets/078b7277-d214-40dc-a831-1c0c0a2fbe38" />
+
 
 3. **Summary Example**  
-![Summary Preview](https://via.placeholder.com/800x400.png?text=Generated+Summary)
+<img width="813" alt="Image" src="https://github.com/user-attachments/assets/b6251bde-baf1-48d5-a55f-950225cf3b93" />
 
-4. **Export Options**  
-![Export Menu](https://via.placeholder.com/800x400.png?text=Export+Options)
 
-### Live Demo
-[Try it Now!](https://your-streamlit-app-url.herokuapp.com) (Coming Soon)
+4. **Study Notes Example**  
+<img width="815" alt="Image" src="https://github.com/user-attachments/assets/49c6deda-97db-4442-8f24-462fa1916cff" />
+
+<img width="814" alt="Image" src="https://github.com/user-attachments/assets/35a694e5-3c07-4a78-bb3e-432fb0e316a2" />
+
+5. **Transcript**
+<img width="814" alt="Image" src="https://github.com/user-attachments/assets/f43fbad9-0914-48f2-8a5c-f980fe5429cb" />
 
 ## Installation
 
