@@ -40,10 +40,10 @@ YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos 
 - Multiple display formats (plain text/timestamped table)
 
 ### 📊 Summary Generation
-- **Concise**: 3-5 bullet points of key ideas
-- **Detailed**: Paragraph-formatted comprehensive summary
-- **Chapter-Based**: Time-stamped sections with headings
-- **Study Notes**: Structured format with key points and resources
+- **Concise**: 3-5 bullet points of key ideas (up to 250 words).
+- **Detailed**: Paragraph-formatted comprehensive summary (up to 500 words).
+- **Chapter-Based**: Time-stamped sections with headings (up to 500 words).
+- **Study Notes**: Generates structured, actionable notes with sections like Introduction, Key Points, Action Items, Quotes, and Resources.
 
 ### 💾 Export Options
 - Save as PDF with professional formatting
