@@ -61,12 +61,13 @@ YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos 
 
 ### Screenshots
 1. **Main Interface**  
-![Main Interface](https://via.placeholder.com/800x400.png?text=Video+Processing+Interface)
+<img width="812" alt="Image" src="https://github.com/user-attachments/assets/ec0e89d8-3a4d-487f-8132-184ba4d5dc2c" />
 
-2. **Summary Example**  
+
+3. **Summary Example**  
 ![Summary Preview](https://via.placeholder.com/800x400.png?text=Generated+Summary)
 
-3. **Export Options**  
+4. **Export Options**  
 ![Export Menu](https://via.placeholder.com/800x400.png?text=Export+Options)
 
 ### Live Demo
