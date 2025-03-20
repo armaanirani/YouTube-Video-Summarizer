@@ -418,7 +418,7 @@ def main():
     # Sidebar
     with st.sidebar:
         st.image("https://img.icons8.com/color/96/000000/youtube-play.png", width=100)
-        st.title("YouTube Summarizer")
+        st.title("YouTube Video Summarizer")
         st.markdown("Turn long YouTube videos into concise summaries and notes.")
         
         # API key input
@@ -439,7 +439,7 @@ def main():
         st.markdown("Built with Streamlit and Google Gemini")
     
     # Main content
-    st.title("📝 YouTube Transcript Summarizer")
+    st.title("📝 YouTube Video Summarizer")
     
     # Input section
     st.markdown("### Enter YouTube Video URL")
