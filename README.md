@@ -34,10 +34,10 @@ YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos 
 ## Features
 
 ### 📜 Transcript Extraction
-- Automatic detection of available captions
-- Timestamp preservation
-- Text normalization and cleaning
-- Multiple display formats (plain text/timestamped table)
+- Automatic detection of available captions.
+- Timestamp preservation.
+- Text normalization and cleaning.
+- Multiple display formats (plain text/timestamped table).
 
 ### 📊 Summary Generation
 - **Concise**: 3-5 bullet points of key ideas (up to 250 words).
@@ -46,16 +46,16 @@ YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos 
 - **Study Notes**: Generates structured, actionable notes with sections like Introduction, Key Points, Action Items, Quotes, and Resources.
 
 ### 💾 Export Options
-- Save as PDF with professional formatting
-- Export as plain text files
-- Clipboard copy functionality
-- Automatic filename generation with metadata
+- Save as PDF with professional formatting.
+- Export as plain text files.
+- Clipboard copy functionality.
+- Automatic filename generation with metadata.
 
 ### 🖥 User-Friendly Interface
-- Intuitive URL input and processing
-- Real-time progress indicators
-- Responsive design for all devices
-- Clear error messages and validations
+- Intuitive URL input and processing.
+- Real-time progress indicators.
+- Responsive design for all devices.
+- Clear error messages and validations.
 
 ## Demo
 
