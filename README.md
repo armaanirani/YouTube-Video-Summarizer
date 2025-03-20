@@ -1,4 +1,4 @@
-# YouTube Summarizer 📝
+# YouTube Video Summarizer 📝
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
@@ -19,7 +19,7 @@
 ## Overview
 
 ### Description
-The YouTube Summarizer is a powerful web application built with Streamlit that allows users to extract transcripts from YouTube videos and generate concise summaries or structured study notes using the Gemini AI model. With an intuitive interface, users can input a YouTube URL, process the video, and generate various types of summaries (Concise, Detailed, or Chapter-Based) or study notes. The app also supports exporting content in text and PDF formats, making it an excellent tool for students, researchers, and anyone looking to quickly digest video content.
+The YouTube Video Summarizer is a powerful web application built with Streamlit that allows users to extract transcripts from YouTube videos and generate concise summaries or structured study notes using the Gemini AI model. With an intuitive interface, users can input a YouTube URL, process the video, and generate various types of summaries (Concise, Detailed, or Chapter-Based) or study notes. The app also supports exporting content in text and PDF formats, making it an excellent tool for students, researchers, and anyone looking to quickly digest video content.
 
 ### Technology Stack
 - **Frontend**: Streamlit
