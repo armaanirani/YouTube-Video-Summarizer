@@ -78,6 +78,8 @@ The YouTube Summarizer is a powerful web application built with Streamlit that a
 5. **Transcript**
 <img width="814" alt="Image" src="https://github.com/user-attachments/assets/f43fbad9-0914-48f2-8a5c-f980fe5429cb" />
 
+Video used in the demo above: https://www.youtube.com/watch?v=SUeQvl7IOV4 (Marques Brownlee)
+
 ## Installation
 
 ### Prerequisites
