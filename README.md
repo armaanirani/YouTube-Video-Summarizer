@@ -19,7 +19,7 @@
 ## Overview
 
 ### Description
-YouTube Summarizer is an AI-powered tool that transforms lengthy YouTube videos into concise summaries, structured notes, and organized transcripts. Designed for students, researchers, and lifelong learners, it solves the problem of information overload by enabling efficient content consumption.
+The YouTube Summarizer is a powerful web application built with Streamlit that allows users to extract transcripts from YouTube videos and generate concise summaries or structured study notes using the Gemini AI model. With an intuitive interface, users can input a YouTube URL, process the video, and generate various types of summaries (Concise, Detailed, or Chapter-Based) or study notes. The app also supports exporting content in text and PDF formats, making it an excellent tool for students, researchers, and anyone looking to quickly digest video content.
 
 ### Technology Stack
 - **Frontend**: Streamlit
