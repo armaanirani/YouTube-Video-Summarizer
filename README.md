@@ -91,7 +91,7 @@ Video used in the demo above: https://www.youtube.com/watch?v=SUeQvl7IOV4 (Marqu
 1. Clone repository:
    ```bash
    git clone https://github.com/armaanirani/YouTube-Video-Summarizer.git
-   cd youtube-summarizer
+   cd YouTube-Video-Summarizer
 
 2. Create virual environment:
    ```bash
