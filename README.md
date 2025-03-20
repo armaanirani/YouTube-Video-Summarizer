@@ -90,7 +90,7 @@ Video used in the demo above: https://www.youtube.com/watch?v=SUeQvl7IOV4 (Marqu
 ### Setup
 1. Clone repository:
    ```bash
-   git clone https://github.com/yourusername/youtube-summarizer.git
+   git clone https://github.com/armaanirani/YouTube-Video-Summarizer.git
    cd youtube-summarizer
 
 2. Create virual environment:
@@ -218,11 +218,11 @@ We welcome contributions to improve the YouTube Summarizer! **Before making any 
 **GitHub**: [@armaanirani](https://github.com/armaanirani)  
 
 **Project Repository**:  
-[https://github.com/armaanirani/youtube-summarizer](https://github.com/armaanirani/youtube-summarizer)  
+[https://github.com/armaanirani/YouTube-Video-Summarizer](https://github.com/armaanirani/YouTube-Video-Summarizer)  
 
 **For Issues/Feedback**:  
-- Open a ticket in [GitHub Issues](https://github.com/armaanirani/youtube-summarizer/issues)  
-- Email with subject line "[YouTube Summarizer] - [Brief Topic]"  
+- Open a ticket in [GitHub Issues](https://github.com/armaanirani/YouTube-Video-Summarizer/issues)  
+- Email with subject line "[YouTube Video Summarizer] - [Brief Topic]"  
 
 **Note**: All contribution proposals must be emailed first for discussion. Unsolicited pull requests will not be accepted without prior coordination.  
 
